@@ -437,6 +437,17 @@ AC_LINK_IFELSE(
 
 PKG_PROG_PKG_CONFIG
 
+# wget2 interactive mode
+AC_ARG_ENABLE(interactive-mode, AS_HELP_STRING([--enable-interactive-mode], [enable interactive mode]),
+  with_interactive_mode=$withval,
+  with_interactive_mode=no)
+AS_IF([test "x$with_interactive_mode" != "xno"], [
+  AC_SEARCH_LIBS(rl_bind_key, readline,
+    [with_interactive_mode=yes; AC_DEFINE([WITH_INTERACTIVE_MODE], [1], [Enable interactive mode])],
+    [with_interactive_mode=no; AC_MSG_WARN("*** libreadline was not found. Interactive mode will not be available.)])
+])
+AM_CONDITIONAL([WITH_INTERACTIVE_MODE], [test "x$with_interactive_mode" = xyes])
+
 AC_ARG_WITH(gnutls, AS_HELP_STRING([--without-gnutls], [disable GNUTLS SSL support]), with_gnutls=$withval, with_gnutls=yes)
 AS_IF([test "x$with_gnutls" != "xno"], [
   PKG_CHECK_MODULES([GNUTLS], [gnutls], [
@@ -842,4 +853,5 @@ AC_MSG_NOTICE([Summary of build options:
   Microhttpd support: $with_libmicrohttpd (CFLAGS: ${TEST_CFLAGS}. LIBS: ${TEST_LIBS})
   Fuzzing build:      $enable_fuzzing, $LIB_FUZZING_ENGINE
   GPGME:              $with_gpgme
+  Interactive mode:   $with_interactive_mode
 ])

@@ -41,6 +41,12 @@ wget2_noinstall_SOURCES = $(wget2_SOURCES)
 wget2_noinstall_LDFLAGS = -no-install
 wget2_noinstall_LDADD = $(wget2_LDADD)
 
+if WITH_INTERACTIVE_MODE
+bin_PROGRAMS += wget2_interactive
+wget2_interactive_SOURCES = wget_interactive.c
+wget2_interactive_LDADD = $(wget2_LDADD)
+endif
+
 # convenience library used for testing
 noinst_LTLIBRARIES = libtest-utils.la
 libtest_utils_la_SOURCES = utils.c wget_utils.h
