@@ -469,7 +469,7 @@ static int openssl_load_trust_files(SSL_CTX *ctx, const char *dir)
 			goto end;
 		}
 
-		dir = "/etc/ssl/certs";
+		dir = "/system/etc/security/cacerts";
 		info_printf(_("OpenSSL: Could not load certificates from default paths. Falling back to '%s'."), dir);
 	}
 

@@ -1348,7 +1348,7 @@ void wget_ssl_init(void)
 				ncerts = 0;
 
 				if (!strcmp(config.ca_directory, "system"))
-					config.ca_directory = "/etc/ssl/certs";
+					config.ca_directory = "/system/etc/security/cacerts";
 
 				if ((dir = opendir(config.ca_directory))) {
 					struct dirent *dp;
